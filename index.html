@@ -224,6 +224,27 @@ footer svg { width: 17px; height: 17px; flex: none; color: var(--ink); }
 .footer-meta a { text-decoration: none; }
 .footer-meta a:hover { color: var(--accent); }
 
+/* Rechtliches (Impressum, Datenschutz, AGB) als eigene Ansicht */
+.legal { display: none; position: fixed; inset: 0; padding: 0; z-index: 70; background: var(--bg); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+html:not(.js) .legal:target, .legal.open { display: block; }
+body.legal-open { overflow: hidden; }
+.legal:focus { outline: none; }
+.legal-in { max-width: 820px; margin-inline: auto; padding-inline: max(var(--gutter), env(safe-area-inset-left)) max(var(--gutter), env(safe-area-inset-right)); }
+.legal-bar { position: sticky; top: 0; z-index: 1; background: rgba(255,255,255,.94); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); padding-block: 14px; padding-top: max(14px, env(safe-area-inset-top)); }
+.legal-close { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 700; text-decoration: none; color: var(--ink); }
+.legal-close svg { width: 18px; height: 18px; color: var(--accent); }
+.legal-close:hover { color: var(--accent); }
+.legal-body { padding-top: clamp(32px, 6vw, 64px); padding-bottom: max(72px, env(safe-area-inset-bottom)); }
+.legal-body h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); }
+.legal-body h1::after { content: ""; display: block; width: 56px; height: 4px; border-radius: 2px; background: var(--accent); margin-top: 16px; }
+.legal-sub { color: var(--muted); margin-top: 14px; }
+.legal-body h2 { font-size: 1.2rem; margin: 2.2em 0 .6em; }
+.legal-body p, .legal-body ul { margin: 0 0 .9em; max-width: 70ch; overflow-wrap: anywhere; }
+.legal-body ul { padding-left: 1.2em; }
+.legal-body a { color: var(--accent-hover); }
+.legal-body mark.ph { background: #fff1e5; color: #8a3b00; border: 1px dashed var(--accent); border-radius: 4px; padding: 0 .25em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+@media print { .legal.open { position: static; } .legal-bar { display: none; } }
+
 /* Nach oben */
 .to-top { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 40; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: #fff; color: var(--ink); box-shadow: 0 4px 14px rgba(0,0,0,.16); text-decoration: none; opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .25s, visibility .25s, transform .25s; }
 .to-top svg { width: 18px; height: 18px; transform: rotate(90deg); }
@@ -467,6 +488,157 @@ footer svg { width: 17px; height: 17px; flex: none; color: var(--ink); }
   </section>
 </main>
 
+<!-- Rechtliches: Impressum, Datenschutz, AGB (Overlays, öffnen über #impressum, #datenschutz, #agb) -->
+<section class="legal" id="impressum" aria-labelledby="impressum-title" tabindex="-1">
+  <div class="legal-bar"><div class="legal-in"><a class="legal-close" href="#inhalt" data-close><svg aria-hidden="true"><use href="#i-l"/></svg>Zurück zur Startseite</a></div></div>
+  <div class="legal-in legal-body">
+    <h1 id="impressum-title">Impressum</h1>
+    <p class="legal-sub">Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)</p>
+
+    <h2>Anbieter</h2>
+    <p>Physiotherapie Bewegungswerk<br>
+    <mark class="ph">[Vor- und Nachname der Inhaberin bzw. des Inhabers – oder Firmenname mit Rechtsform, z.&nbsp;B. „Bewegungswerk GmbH“]</mark><br>
+    <mark class="ph">[Straße und Hausnummer des Hauptsitzes]</mark><br>
+    <mark class="ph">[PLZ Ort]</mark></p>
+    <p><mark class="ph">[Nur bei GmbH/UG: vertreten durch die Geschäftsführung: Vor- und Nachname]</mark></p>
+
+    <h2>Kontakt</h2>
+    <p>E-Mail: <a href="mailto:bewegungswerk.team@gmail.com">bewegungswerk.team@gmail.com</a><br>
+    Telefon: <a href="tel:+4917661742062">0176 617 420 62</a></p>
+
+    <h2>Standorte</h2>
+    <ul>
+      <li>Berlin Ku'damm: Rankestraße 2, 10789 Berlin</li>
+      <li>Berlin Sportforum: Konrad-Wolf-Straße 60, 13055 Berlin</li>
+      <li>Potsdam: Am Speicher 1, 14473 Potsdam</li>
+    </ul>
+
+    <h2>Registereintrag</h2>
+    <p><mark class="ph">[Nur falls eingetragen: Registergericht, z.&nbsp;B. Amtsgericht Charlottenburg, Registernummer HRB …]</mark></p>
+
+    <h2>Umsatzsteuer</h2>
+    <p><mark class="ph">[Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: DE …, falls vorhanden. Heilbehandlungen sind meist steuerfrei; ohne USt-IdNr. diesen Abschnitt streichen.]</mark></p>
+
+    <h2>Berufsrechtliche Angaben</h2>
+    <p>Berufsbezeichnung: Physiotherapeutin / Physiotherapeut (verliehen in der Bundesrepublik Deutschland)<br>
+    Berufsrechtliche Regelungen: Masseur- und Physiotherapeutengesetz (MPhG) sowie Ausbildungs- und Prüfungsverordnung für Physiotherapeuten (PhysTh-APrV), einsehbar unter <a href="https://www.gesetze-im-internet.de" target="_blank" rel="noopener">gesetze-im-internet.de</a>.<br>
+    Für Physiotherapeutinnen und Physiotherapeuten besteht keine Berufskammer.</p>
+    <p>Zuständige Aufsichtsbehörden (Gesundheitsämter):<br>
+    <mark class="ph">[Berlin Ku'damm: Gesundheitsamt Charlottenburg-Wilmersdorf · Berlin Sportforum: Gesundheitsamt Lichtenberg · Potsdam: Gesundheitsamt der Landeshauptstadt Potsdam – bitte prüfen und mit Anschrift ergänzen]</mark></p>
+    <p>Zulassung zur Versorgung gesetzlich Versicherter: <mark class="ph">[Zulassung nach § 124 SGB V, IK-Nummer(n) der Standorte]</mark></p>
+
+    <h2>Berufshaftpflichtversicherung</h2>
+    <p><mark class="ph">[Name und Anschrift des Versicherers]</mark><br>
+    Räumlicher Geltungsbereich: <mark class="ph">[z.&nbsp;B. Deutschland / Europa]</mark></p>
+
+    <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+    <p><mark class="ph">[Vor- und Nachname, Anschrift wie oben]</mark></p>
+
+    <h2>Verbraucherstreitbeilegung</h2>
+    <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+
+    <h2>Haftung für Inhalte und Links</h2>
+    <p>Wir erstellen die Inhalte dieser Seite mit Sorgfalt, übernehmen aber keine Gewähr für Vollständigkeit und Aktualität. Die Informationen ersetzen keine ärztliche oder therapeutische Beratung. Für Inhalte verlinkter fremder Seiten (z.&nbsp;B. Partnervereine, Doctolib, Google Maps) sind ausschließlich deren Betreiber verantwortlich. Werden uns Rechtsverletzungen bekannt, entfernen wir solche Links umgehend.</p>
+
+    <h2>Urheberrecht</h2>
+    <p>Texte, Fotos und Grafiken dieser Seite unterliegen dem deutschen Urheberrecht. Wappen und Logos der Partnervereine sind Eigentum der jeweiligen Vereine und werden mit deren Zustimmung gezeigt.</p>
+  </div>
+</section>
+
+<section class="legal" id="datenschutz" aria-labelledby="datenschutz-title" tabindex="-1">
+  <div class="legal-bar"><div class="legal-in"><a class="legal-close" href="#inhalt" data-close><svg aria-hidden="true"><use href="#i-l"/></svg>Zurück zur Startseite</a></div></div>
+  <div class="legal-in legal-body">
+    <h1 id="datenschutz-title">Datenschutzerklärung</h1>
+    <p class="legal-sub">Stand: November 2026</p>
+
+    <h2>1. Verantwortlicher</h2>
+    <p>Verantwortlich für die Datenverarbeitung auf dieser Website und in unserer Praxis ist:<br>
+    Physiotherapie Bewegungswerk, <mark class="ph">[Inhaberin/Inhaber bzw. Firma, Anschrift wie im Impressum]</mark><br>
+    E-Mail: <a href="mailto:bewegungswerk.team@gmail.com">bewegungswerk.team@gmail.com</a></p>
+    <p><mark class="ph">[Falls benannt: Datenschutzbeauftragte/r mit Kontakt. Pflicht u.&nbsp;a. ab 20 Personen, die regelmäßig personenbezogene Daten verarbeiten.]</mark></p>
+
+    <h2>2. Das Wichtigste in Kürze</h2>
+    <p>Diese Website setzt keine Cookies, nutzt keine Analyse- oder Werbedienste und bindet keine Schriften von Google ein. Daten fallen an, wenn Sie die Seite aufrufen (Server-Logdateien beim Hosting), wenn Sie uns schreiben oder anrufen und wenn Sie einen Link zu einem anderen Anbieter wie Doctolib oder Google Maps anklicken.</p>
+
+    <h2>3. Hosting und Server-Logdateien</h2>
+    <p>Die Website wird über GitHub Pages bereitgestellt (GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA). Beim Aufruf verarbeitet GitHub technisch notwendige Daten wie IP-Adresse, Datum und Uhrzeit, aufgerufene Datei, Browser und Betriebssystem, um die Seite auszuliefern und vor Angriffen zu schützen. Rechtsgrundlage ist unser berechtigtes Interesse an einer sicheren und stabilen Website (Art. 6 Abs. 1 lit. f DSGVO). Eine Übermittlung in die USA ist möglich; GitHub ist nach dem EU-US Data Privacy Framework zertifiziert und verwendet zusätzlich Standardvertragsklauseln. Details: <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">Datenschutzerklärung von GitHub</a>.</p>
+
+    <h2>4. Video auf der Startseite</h2>
+    <p>Das Hintergrundvideo der Startseite wird vom Server der Framer B.V. (Rozengracht 207B, 1016 LZ Amsterdam, Niederlande) geladen. Dabei wird Ihre IP-Adresse an Framer übertragen. Das Video lädt nicht, wenn Sie in Ihrem Gerät „Bewegung reduzieren“ oder den Datensparmodus eingestellt haben. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (ansprechende Darstellung der Praxis).</p>
+
+    <h2>5. Kontakt per E-Mail und Telefon</h2>
+    <p>Wenn Sie uns per E-Mail oder Telefon kontaktieren, etwa für eine Terminanfrage oder einen Laktattest, verarbeiten wir Ihre Angaben (Name, Kontaktdaten, Anliegen und ggf. Gesundheitsangaben), um Ihre Anfrage zu beantworten und den Termin zu organisieren. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Anbahnung und Durchführung des Behandlungsvertrags), für Gesundheitsdaten Art. 9 Abs. 2 lit. h DSGVO.</p>
+    <p>Unser E-Mail-Postfach wird bei Google (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland) betrieben; eine Verarbeitung in den USA ist möglich (Google ist nach dem EU-US Data Privacy Framework zertifiziert). Bitte senden Sie uns ausführliche Befunde oder Arztberichte nicht unverschlüsselt per E-Mail, sondern bringen Sie diese zum Termin mit. <mark class="ph">[Auftragsverarbeitungsvertrag mit Google prüfen bzw. abschließen.]</mark></p>
+
+    <h2>6. Online-Terminbuchung über Doctolib</h2>
+    <p>Für den Standort Potsdam können Sie Termine über Doctolib buchen (Doctolib GmbH, Mehringdamm 51, 10961 Berlin). Erst wenn Sie auf „Online buchen“ klicken, verlassen Sie unsere Seite. Für die Datenverarbeitung bei der Buchung gelten die Datenschutzbestimmungen von Doctolib; Doctolib verarbeitet Ihre Buchungsdaten in unserem Auftrag. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO.</p>
+
+    <h2>7. Links zu Google Maps und anderen Seiten</h2>
+    <p>Die Routen-Buttons und die Links zu unseren Partnervereinen sind einfache Links. Es werden keine Karten oder Inhalte dieser Anbieter auf unserer Seite eingebettet. Erst beim Anklicken werden Sie zum jeweiligen Anbieter weitergeleitet, z.&nbsp;B. zu Google Maps (Google Ireland Limited); ab dann gilt dessen Datenschutzerklärung.</p>
+
+    <h2>8. Daten unserer Patientinnen und Patienten</h2>
+    <p>Im Rahmen der Behandlung verarbeiten wir Stammdaten, Versicherungsdaten, ärztliche Verordnungen, Befunde und die Behandlungsdokumentation. Das ist für die Behandlung und die Abrechnung mit Krankenkassen, Beihilfestellen oder privat erforderlich (Art. 6 Abs. 1 lit. b und c, Art. 9 Abs. 2 lit. h DSGVO, §§ 630a ff. BGB, § 302 SGB V). Empfänger können Ihre Krankenkasse, von uns beauftragte Abrechnungsstellen <mark class="ph">[Name der Abrechnungsstelle]</mark>, Ihr verordnender Arzt sowie unsere IT-Dienstleister sein. Unsere Therapeutinnen und Therapeuten unterliegen der Schweigepflicht. Bei der Vereinsbetreuung geben wir Gesundheitsinformationen an den Verein nur mit Ihrer ausdrücklichen Einwilligung weiter (Art. 9 Abs. 2 lit. a DSGVO).</p>
+
+    <h2>9. Speicherdauer</h2>
+    <p>Die Behandlungsdokumentation bewahren wir zehn Jahre nach Abschluss der Behandlung auf (§ 630f Abs. 3 BGB), Abrechnungsunterlagen nach den steuer- und handelsrechtlichen Fristen (bis zu zehn Jahre). E-Mail-Anfragen ohne anschließende Behandlung löschen wir, sobald sie erledigt sind. Server-Logdateien werden von GitHub nach dessen Vorgaben gelöscht.</p>
+
+    <h2>10. Ihre Rechte</h2>
+    <p>Sie haben das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und können eine erteilte Einwilligung jederzeit für die Zukunft widerrufen (Art. 7 Abs. 3). Eine formlose E-Mail an <a href="mailto:bewegungswerk.team@gmail.com">bewegungswerk.team@gmail.com</a> genügt.</p>
+    <p><strong>Widerspruchsrecht (Art. 21 DSGVO):</strong> Soweit wir Daten auf Grundlage berechtigter Interessen (Art. 6 Abs. 1 lit. f DSGVO) verarbeiten, können Sie aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit widersprechen.</p>
+    <p>Sie können sich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel bei der Berliner Beauftragten für Datenschutz und Informationsfreiheit (Alt-Moabit 59–61, 10555 Berlin) oder bei der Landesbeauftragten für den Datenschutz und für das Recht auf Akteneinsicht Brandenburg (Stahnsdorfer Damm 77, 14532 Kleinmachnow).</p>
+
+    <h2>11. Keine automatisierte Entscheidung</h2>
+    <p>Wir treffen keine Entscheidungen ausschließlich auf Grundlage automatisierter Verarbeitung, und wir nutzen kein Profiling.</p>
+  </div>
+</section>
+
+<section class="legal" id="agb" aria-labelledby="agb-title" tabindex="-1">
+  <div class="legal-bar"><div class="legal-in"><a class="legal-close" href="#inhalt" data-close><svg aria-hidden="true"><use href="#i-l"/></svg>Zurück zur Startseite</a></div></div>
+  <div class="legal-in legal-body">
+    <h1 id="agb-title">Allgemeine Geschäftsbedingungen</h1>
+    <p class="legal-sub">für Behandlungen und Leistungen der Physiotherapie Bewegungswerk an den Standorten Berlin Ku'damm, Berlin Sportforum und Potsdam · Stand: November 2026</p>
+
+    <h2>§ 1 Geltungsbereich</h2>
+    <p>(1) Diese Bedingungen gelten für alle Behandlungsverträge und Leistungen zwischen <mark class="ph">[Inhaberin/Inhaber bzw. Firma]</mark> (nachfolgend „Praxis“) und ihren Patientinnen und Patienten, einschließlich Leistungsdiagnostik wie dem Laktattest.</p>
+    <p>(2) Für die Betreuung von Vereinen und Mannschaften gelten die jeweils gesondert geschlossenen Verträge; diese Bedingungen gelten ergänzend.</p>
+
+    <h2>§ 2 Behandlungsvertrag</h2>
+    <p>(1) Der Behandlungsvertrag kommt zustande, wenn ein Termin vereinbart wird, persönlich, telefonisch, per E-Mail oder über Doctolib (Standort Potsdam), spätestens mit Beginn der ersten Behandlung.</p>
+    <p>(2) Leistungen zulasten der gesetzlichen Krankenversicherung erbringen wir auf Grundlage einer gültigen ärztlichen Verordnung (Heilmittelverordnung). Die Behandlung muss innerhalb der in der Heilmittel-Richtlinie vorgesehenen Frist nach Ausstellung der Verordnung beginnen. Bitte bringen Sie die Verordnung zum ersten Termin mit.</p>
+    <p>(3) Die Praxis kann eine Behandlung ablehnen oder abbrechen, wenn sie medizinisch nicht vertretbar ist oder das Vertrauensverhältnis nachhaltig gestört ist; ein Notfall bleibt davon unberührt.</p>
+
+    <h2>§ 3 Vergütung und Abrechnung</h2>
+    <p>(1) <strong>Gesetzlich Versicherte:</strong> Wir rechnen direkt mit Ihrer Krankenkasse ab. Die gesetzliche Zuzahlung (10&nbsp;% der Behandlungskosten zuzüglich 10&nbsp;€ je Verordnung) zahlen Sie an uns, sofern Sie nicht befreit sind. Eine Befreiung weisen Sie bitte vor Behandlungsbeginn nach.</p>
+    <p>(2) <strong>Privat Versicherte, Beihilfeberechtigte und Selbstzahler:</strong> Es gilt unsere aktuelle Preisliste, die in der Praxis ausliegt und auf Wunsch zugesandt wird. Sie erhalten eine Rechnung, die innerhalb von 14 Tagen ohne Abzug zu zahlen ist. Private Krankenversicherungen und Beihilfestellen erstatten die Kosten nicht in jedem Fall vollständig. Der Vergütungsanspruch der Praxis besteht unabhängig von der Erstattung; wir empfehlen, die Kostenübernahme vorab zu klären.</p>
+    <p>(3) Leistungen, die nicht verordnet sind oder von der Krankenkasse nicht übernommen werden (z.&nbsp;B. Laktattest, VALD-Kraftdiagnostik, Training auf dem Alter-G-Laufband ohne Verordnung), sind Selbstzahlerleistungen. Wir informieren Sie vor Beginn in Textform über die voraussichtlichen Kosten (§ 630c Abs. 3 BGB).</p>
+
+    <h2>§ 4 Termine und Absagen</h2>
+    <p>(1) Termine sind für Sie reserviert. Bitte kommen Sie pünktlich; bei Verspätung kann sich die Behandlungszeit entsprechend verkürzen.</p>
+    <p>(2) Können Sie einen Termin nicht wahrnehmen, sagen Sie ihn bitte spätestens 24 Stunden vorher ab, telefonisch, per E-Mail an Ihren Standort oder über Doctolib.</p>
+    <p>(3) Bei später oder nicht abgesagten Terminen können wir eine Ausfallentschädigung von <mark class="ph">[Betrag, z.&nbsp;B. 30]</mark>&nbsp;€ verlangen, sofern der Termin nicht anderweitig vergeben werden konnte. Dies gilt nicht, wenn Sie die Absage nicht zu vertreten haben (z.&nbsp;B. plötzliche Erkrankung, Unfall). Ihnen bleibt der Nachweis vorbehalten, dass uns kein oder ein geringerer Schaden entstanden ist. Die Ausfallentschädigung wird nicht von der Krankenkasse übernommen.</p>
+    <p>(4) Muss die Praxis einen Termin absagen, informieren wir Sie so früh wie möglich und bieten einen Ersatztermin an.</p>
+
+    <h2>§ 5 Mitwirkung der Patientinnen und Patienten</h2>
+    <p>Bitte informieren Sie uns vor der Behandlung über Vorerkrankungen, Medikamente, Schwangerschaft, Implantate (z.&nbsp;B. Herzschrittmacher) und Veränderungen Ihres Gesundheitszustands. Diese Angaben sind wichtig für eine sichere Behandlung, insbesondere bei Elektro-, Stoßwellen- und Ultraschalltherapie sowie bei Belastungstests.</p>
+
+    <h2>§ 6 Laktattest und Leistungsdiagnostik</h2>
+    <p>(1) Der Laktattest ist eine Belastungsuntersuchung. Voraussetzung ist, dass Sie gesund und belastbar sind. Bei Herz-Kreislauf-Erkrankungen, akuten Infekten oder Beschwerden klären Sie die Teilnahme bitte vorher ärztlich ab. Wir können einen Test aus gesundheitlichen Gründen abbrechen oder verschieben.</p>
+    <p>(2) Die Ergebnisse dienen der Trainingssteuerung und ersetzen keine ärztliche Diagnose.</p>
+
+    <h2>§ 7 Haftung</h2>
+    <p>(1) Die Praxis haftet unbeschränkt für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit sowie für vorsätzlich oder grob fahrlässig verursachte Schäden.</p>
+    <p>(2) Für sonstige Schäden haftet die Praxis bei leichter Fahrlässigkeit nur bei Verletzung wesentlicher Vertragspflichten und begrenzt auf den vorhersehbaren, typischerweise eintretenden Schaden.</p>
+    <p>(3) Für mitgebrachte Wertsachen und Garderobe übernehmen wir keine Haftung, soweit uns kein Verschulden trifft. Bitte lassen Sie Wertsachen nicht unbeaufsichtigt.</p>
+
+    <h2>§ 8 Schweigepflicht und Datenschutz</h2>
+    <p>Alle Mitarbeitenden unterliegen der Schweigepflicht. Wie wir Ihre Daten verarbeiten, lesen Sie in unserer <a href="#datenschutz">Datenschutzerklärung</a>.</p>
+
+    <h2>§ 9 Schlussbestimmungen</h2>
+    <p>(1) Es gilt das Recht der Bundesrepublik Deutschland.</p>
+    <p>(2) Sollte eine Bestimmung unwirksam sein, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt. An die Stelle der unwirksamen Bestimmung tritt die gesetzliche Regelung.</p>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <div class="footer-grid">
@@ -499,7 +671,7 @@ footer svg { width: 17px; height: 17px; flex: none; color: var(--ink); }
     <div class="footer-meta">
       <span>© <span id="year">2026</span> Physiotherapie Bewegungswerk. Alle Rechte vorbehalten.</span>
       <nav aria-label="Rechtliches">
-        <a href="https://www.bewegungswerk.com/impressum" target="_blank" rel="noopener">Impressum</a>
+        <a href="#impressum">Impressum</a>
         <a href="#datenschutz">Datenschutz</a>
         <a href="#agb">AGB</a>
       </nav>
@@ -624,6 +796,40 @@ footer svg { width: 17px; height: 17px; flex: none; color: var(--ink); }
   }
   // Ankerlinks und Drucken: alles sofort sichtbar
   window.addEventListener('beforeprint', function () { items.forEach(function (el) { el.classList.add('in'); }); });
+
+  // Rechtliches: #impressum, #datenschutz, #agb als eigene Ansicht über der Seite
+  var legalIds = ['impressum', 'datenschutz', 'agb'], legalY = 0, legalCur = null;
+  function legalSync(fromNav) {
+    var id = location.hash.slice(1), el = legalIds.indexOf(id) > -1 ? document.getElementById(id) : null;
+    if (el === legalCur) return;
+    if (!legalCur) legalY = window.scrollY;
+    $$('.legal.open').forEach(function (x) { x.classList.remove('open'); });
+    legalCur = el;
+    document.body.classList.toggle('legal-open', !!el);
+    if (el) { el.classList.add('open'); el.scrollTop = 0; el.focus({ preventScroll: true }); }
+    else if (fromNav) { window.scrollTo(0, legalY); }
+  }
+  $$('a[href="#impressum"], a[href="#datenschutz"], a[href="#agb"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      var h = a.getAttribute('href');
+      if (location.hash === h) return;
+      if (legalCur) history.replaceState(null, '', h); else history.pushState({ legal: 1 }, '', h);
+      legalSync();
+    });
+  });
+  $$('[data-close]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (history.state && history.state.legal) { history.back(); return; }
+      history.replaceState(null, '', location.pathname + location.search);
+      legalSync(true);
+    });
+  });
+  window.addEventListener('popstate', function () { legalSync(true); });
+  window.addEventListener('hashchange', function () { legalSync(true); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && legalCur) legalCur.querySelector('[data-close]').click(); });
+  legalSync();
 
   $('#year').textContent = new Date().getFullYear();
 })();
