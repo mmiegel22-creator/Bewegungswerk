@@ -132,7 +132,13 @@ body.menu-open { overflow: hidden; }
 .loc-body .addr { font-size: 0.92rem; color: var(--muted); font-style: normal; }
 .loc-body .tel { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; font-size: 0.92rem; font-weight: 700; color: var(--ink); text-decoration: none; }
 .loc-body .tel:hover { color: var(--accent); }
-.loc-body .tel svg { width: 17px; height: 17px; }
+.loc-body .tel svg { width: 17px; height: 17px; flex: none; }
+.loc-body .contact { display: grid; gap: 4px; justify-items: start; }
+.loc-body .mail { font-weight: 400; color: var(--accent); overflow-wrap: anywhere; }
+.loc-body .mail:hover { color: var(--ink); }
+.loc-body .facts { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.86rem; color: var(--muted); }
+.loc-body .facts span { display: inline-flex; align-items: center; gap: 6px; }
+.loc-body .facts svg { width: 15px; height: 15px; flex: none; }
 .loc-body .btns { display: grid; gap: 14px; justify-items: start; margin-top: 8px; }
 
 /* Bilder */
@@ -197,6 +203,12 @@ body.menu-open { overflow: hidden; }
 /* Footer */
 footer { background: var(--band); border-top: 1px solid var(--line); padding: 80px 0 28px; padding-bottom: max(28px, env(safe-area-inset-bottom)); font-size: 0.92rem; }
 .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+footer .lead { color: var(--muted); max-width: 30ch; }
+footer ul.loc-links { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+footer ul.loc-links a { text-decoration: none; }
+footer ul.loc-links a:hover { color: var(--accent); text-decoration: underline; }
+footer .facts { display: grid; gap: 14px; }
+footer .facts span { display: inline-flex; align-items: center; gap: 10px; }
 footer h2 { font: 700 0.95rem/1.3 var(--font-body); margin-bottom: 18px; color: var(--ink); letter-spacing: 0; }
 footer address { font-style: normal; display: grid; gap: 14px; justify-items: start; }
 footer address a { text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
@@ -331,7 +343,11 @@ footer svg { width: 17px; height: 17px; flex: none; color: var(--ink); }
             <div class="loc-body">
               <h3 id="kudamm-t">Berlin Ku&#x27;damm</h3>
               <address class="addr">Rankestraße 2, 10789 Berlin</address>
-              <a class="tel" href="tel:+4917661742062"><svg aria-hidden="true"><use href="#i-phone"/></svg>0176 617 420 62</a>
+              <div class="contact">
+                <a class="tel" href="tel:+4917661742062"><svg aria-hidden="true"><use href="#i-phone"/></svg>0176 617 420 62</a>
+                <a class="tel mail" href="mailto:bewegungswerk.team@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg><span>bewegungswerk.team<wbr>@gmail.com</span></a>
+              </div>
+              <p class="facts"><span><svg aria-hidden="true"><use href="#i-clock"/></svg>Mo – Fr 08:00 – 20:00 Uhr</span><span>Barrierefreier Zugang</span></p>
               <div class="btns">
                 <a class="btn btn-primary" href="mailto:bewegungswerk.team@gmail.com?subject=Terminanfrage%20Ku%27damm">Termin per E-Mail<span class="sr-only"> für Berlin Ku&#x27;damm</span></a>
                 <a class="btn btn-outline" href="https://maps.app.goo.gl/aPKtB6dqSwboatTK9" target="_blank" rel="noopener">Route zum Ku&#x27;damm<span class="sr-only"> (Google Maps, neuer Tab)</span></a>
@@ -343,7 +359,11 @@ footer svg { width: 17px; height: 17px; flex: none; color: var(--ink); }
             <div class="loc-body">
               <h3 id="sportforum-t">Berlin Sportforum</h3>
               <address class="addr">Konrad-Wolf-Straße 60, 13055 Berlin</address>
-              <a class="tel" href="tel:+491799024631"><svg aria-hidden="true"><use href="#i-phone"/></svg>0179 902 46 31</a>
+              <div class="contact">
+                <a class="tel" href="tel:+491799024631"><svg aria-hidden="true"><use href="#i-phone"/></svg>0179 902 46 31</a>
+                <a class="tel mail" href="mailto:bewegungswerk.team2@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg><span>bewegungswerk.team2<wbr>@gmail.com</span></a>
+              </div>
+              <p class="facts"><span><svg aria-hidden="true"><use href="#i-clock"/></svg>Mo – Fr 08:00 – 20:00 Uhr</span><span>Barrierefreier Zugang</span></p>
               <div class="btns">
                 <a class="btn btn-primary" href="mailto:bewegungswerk.team2@gmail.com?subject=Terminanfrage%20Sportforum">Termin per E-Mail<span class="sr-only"> für Berlin Sportforum</span></a>
                 <a class="btn btn-outline" href="https://maps.app.goo.gl/JcBc4zRFurPbyHuX8" target="_blank" rel="noopener">Route zum Sportforum<span class="sr-only"> (Google Maps, neuer Tab)</span></a>
@@ -355,7 +375,11 @@ footer svg { width: 17px; height: 17px; flex: none; color: var(--ink); }
             <div class="loc-body">
               <h3 id="potsdam-t">Potsdam</h3>
               <address class="addr">Am Speicher 1, 14473 Potsdam</address>
-              <a class="tel" href="tel:+4915158355024"><svg aria-hidden="true"><use href="#i-phone"/></svg>0151 583 550 24</a>
+              <div class="contact">
+                <a class="tel" href="tel:+4915158355024"><svg aria-hidden="true"><use href="#i-phone"/></svg>0151 583 550 24</a>
+                <a class="tel mail" href="mailto:bewegungswerk.team3@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg><span>bewegungswerk.team3<wbr>@gmail.com</span></a>
+              </div>
+              <p class="facts"><span><svg aria-hidden="true"><use href="#i-clock"/></svg>Mo – Fr 08:00 – 20:00 Uhr</span><span>Barrierefreier Zugang</span></p>
               <div class="btns">
                 <a class="btn btn-primary" href="https://www.doctolib.de/physiotherapie/potsdam/martin-miegel-potsdam" target="_blank" rel="noopener">Online buchen<span class="sr-only"> in Potsdam (öffnet Doctolib in neuem Tab)</span></a>
                 <a class="btn btn-outline" href="https://maps.app.goo.gl/n43yDhi7FDP6aPNZ8" target="_blank" rel="noopener">Route nach Potsdam<span class="sr-only"> (Google Maps, neuer Tab)</span></a>
@@ -447,35 +471,29 @@ footer svg { width: 17px; height: 17px; flex: none; color: var(--ink); }
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <h2>Bewegungswerk Berlin Ku&#x27;damm</h2>
+        <h2>Kontakt</h2>
         <address>
-          <a href="https://maps.app.goo.gl/aPKtB6dqSwboatTK9" target="_blank" rel="noopener">Rankestraße 2, 10789 Berlin</a>
-          <a class="c" href="tel:+4917661742062"><svg aria-hidden="true"><use href="#i-phone"/></svg>0176 617 420 62</a>
           <a class="c" href="mailto:bewegungswerk.team@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>bewegungswerk.team@gmail.com</a>
         </address>
+        <p class="lead" style="margin-top:14px">Telefon, E-Mail und Route zu jeder Praxis finden Sie direkt bei den Standorten.</p>
       </div>
       <div>
-        <h2>Bewegungswerk Berlin Sportforum</h2>
-        <address>
-          <a href="https://maps.app.goo.gl/JcBc4zRFurPbyHuX8" target="_blank" rel="noopener">Konrad-Wolf-Straße 60, 13055 Berlin</a>
-          <a class="c" href="tel:+491799024631"><svg aria-hidden="true"><use href="#i-phone"/></svg>0179 902 46 31</a>
-          <a class="c" href="mailto:bewegungswerk.team2@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>bewegungswerk.team2@gmail.com</a>
-        </address>
+        <h2>Standorte</h2>
+        <ul class="loc-links">
+          <li><a href="#kudamm">Berlin Ku&#x27;damm</a></li>
+          <li><a href="#sportforum">Berlin Sportforum</a></li>
+          <li><a href="#potsdam">Potsdam</a></li>
+        </ul>
       </div>
       <div>
-        <h2>Bewegungswerk Potsdam</h2>
-        <address>
-          <a href="https://maps.app.goo.gl/n43yDhi7FDP6aPNZ8" target="_blank" rel="noopener">Am Speicher 1, 14473 Potsdam</a>
-          <a class="c" href="tel:+4915158355024"><svg aria-hidden="true"><use href="#i-phone"/></svg>0151 583 550 24</a>
-          <a class="c" href="mailto:bewegungswerk.team3@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>bewegungswerk.team3@gmail.com</a>
-        </address>
+        <h2>Öffnungszeiten</h2>
+        <div class="facts">
+          <span><svg aria-hidden="true"><use href="#i-clock"/></svg>Montag bis Freitag 08:00 – 20:00 Uhr</span>
+          <span>Barrierefreier Zugang an allen Standorten</span>
+        </div>
       </div>
     </div>
     <div class="footer-row">
-      <div class="facts">
-        <span>Barrierefreier Zugang</span>
-        <span><svg aria-hidden="true"><use href="#i-clock"/></svg>Montag bis Freitag 08:00 – 20:00 Uhr</span>
-      </div>
       <img src="data:image/png;base64,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" alt="Physiotherapie Bewegungswerk" width="420" height="209" loading="lazy" decoding="async">
     </div>
     <div class="footer-meta">
