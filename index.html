@@ -25,7 +25,7 @@
 
 :root {
   --bg: #ffffff;
-  --band: #fafafa;
+  --band: #ededed;
   --ink: #000000;
   --text: #1c1c1c;
   --muted: #555555;
@@ -223,6 +223,8 @@ footer svg { width: 17px; height: 17px; flex: none; color: var(--ink); }
 .footer-meta nav { display: flex; gap: 28px; flex-wrap: wrap; }
 .footer-meta a { text-decoration: none; }
 .footer-meta a:hover { color: var(--accent); }
+footer .btn-insta { margin-top: 18px; gap: 10px; }
+footer .btn-insta svg { width: 19px; height: 19px; color: currentColor; }
 
 /* Rechtliches (Impressum, Datenschutz, AGB) als eigene Ansicht */
 .legal { display: none; position: fixed; inset: 0; padding: 0; z-index: 70; background: var(--bg); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
@@ -305,6 +307,7 @@ body.legal-open { overflow: hidden; }
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M15 3.5a6 6 0 0 1 5.5 5.5M14.5 7a2.6 2.6 0 0 1 2.5 2.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-insta" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m3 7 9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
   <symbol id="i-l" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-r" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -646,6 +649,7 @@ body.legal-open { overflow: hidden; }
           <a class="c" href="mailto:bewegungswerk.team@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>bewegungswerk.team@gmail.com</a>
         </address>
         <p class="lead" style="margin-top:14px">Telefon, E-Mail und Route zu jeder Praxis finden Sie direkt bei den Standorten.</p>
+        <a class="btn btn-primary btn-insta" href="https://www.instagram.com/bewegungswerk_physiotherapie/" target="_blank" rel="noopener" aria-label="Bewegungswerk auf Instagram (öffnet in neuem Tab)"><svg aria-hidden="true"><use href="#i-insta"/></svg>Folgen Sie uns auf Instagram</a>
       </div>
       <div>
         <h2>Standorte</h2>
