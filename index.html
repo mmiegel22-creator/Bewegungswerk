@@ -101,6 +101,14 @@ h2 .hl, .hl { color: var(--accent); }
 .header .nav a:hover { color: var(--accent); }
 .header .nav .link-accent { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
 .header-actions { margin-left: auto; display: flex; align-items: center; gap: 32px; }
+.nav-insta { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; margin-block: -10px; border-radius: 50%; color: var(--ink); transition: color .2s, background-color .2s; }
+.nav-insta svg { width: 22px; height: 22px; }
+.nav-insta:hover, .nav-insta:focus-visible { color: #F6740E; background: rgba(246,116,14,.1); }
+.header .nav a.nav-insta { margin-left: -16px; }
+@media (max-width: 520px) { .header-actions .nav-insta { display: none; } }
+.mobile-menu a.insta-m { display: flex; align-items: center; gap: 12px; }
+.mobile-menu a.insta-m svg { width: 26px; height: 26px; color: #F6740E; }
+.mobile-menu a.insta-m:hover { color: #F6740E; }
 .hours { display: inline-flex; align-items: center; gap: 8px; font-size: 0.95rem; }
 .hours svg { width: 18px; height: 18px; color: var(--accent); }
 .burger { width: 44px; height: 44px; display: grid; place-content: center; gap: 4px; background: none; border: 0; cursor: pointer; padding: 0; }
@@ -439,9 +447,11 @@ body.legal-open { overflow: hidden; }
       <a href="#team">Team</a>
       <a href="#partner">Teambetreuung</a>
       <a class="link-accent" href="#standorte">Termin buchen</a>
+      <a class="nav-insta" href="https://www.instagram.com/bewegungswerk_physiotherapie/" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-insta"/></svg></a>
     </nav>
     <div class="header-actions">
       <span class="hours"><svg aria-hidden="true"><use href="#i-clock"/></svg>Mo – Fr 08:00 – 20:00 Uhr</span>
+      <a class="nav-insta" href="https://www.instagram.com/bewegungswerk_physiotherapie/" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-insta"/></svg></a>
       <a class="btn btn-primary" href="#standorte">Termin buchen</a>
       <button class="burger" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
     </div>
@@ -452,6 +462,7 @@ body.legal-open { overflow: hidden; }
   <a href="#leistungen">Leistungen</a>
   <a href="#team">Team</a>
   <a href="#partner">Teambetreuung</a>
+  <a class="insta-m" href="https://www.instagram.com/bewegungswerk_physiotherapie/" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-insta"/></svg><span>Instagram</span></a>
   <a class="btn btn-primary" href="#standorte">Termin buchen</a>
   <span class="hours-m">Mo – Fr 08:00 – 20:00 Uhr</span>
 </nav>
