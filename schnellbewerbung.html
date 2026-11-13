@@ -507,6 +507,8 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
     calcH = h;
     setTimeout(function () { $('name').focus({ preventScroll: true }); }, 400);
   });
+  // Link aus der Kachel "Physiotherapie in Ausbildung": Stand vorauswählen
+  if (/[?&]ausbildung\b/.test(location.search)) { var az = form.querySelector('input[name=status][value="In Ausbildung"]'); if (az) az.checked = true; }
   $('year').textContent = new Date().getFullYear();
 })();
 </script>
