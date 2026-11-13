@@ -223,7 +223,7 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
           </div>
         </fieldset>
         <div class="range">
-          <div class="range-top"><label for="c-years">Berufserfahrung</label><output id="c-years-out" for="c-years">0 Jahre</output></div>
+          <div class="range-top"><label for="c-years" id="c-years-l">Berufserfahrung</label><output id="c-years-out" for="c-years">0 Jahre</output></div>
           <input type="range" id="c-years" min="0" max="30" step="1" value="0">
           <div class="range-scale"><span>Berufseinstieg</span><span>30 J.</span></div>
         </div>
@@ -277,7 +277,7 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
         <span class="err">Bitte wählen Sie aus.</span>
         <div class="grid2" style="margin-top:6px">
           <div class="field">
-            <label for="exp">Berufserfahrung in Jahren</label>
+            <label for="exp" id="exp-l">Berufserfahrung in Jahren</label>
             <input id="exp" name="exp" type="number" inputmode="numeric" min="0" max="45" step="1" placeholder="z. B. 3 (0 = Berufseinstieg)">
           </div>
           <div class="field">
@@ -394,6 +394,8 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
   function vals(name) { return [].slice.call(form.querySelectorAll('input[name="' + name + '"]:checked')).map(function (i) { return i.value; }); }
   function mark(el, bad) { el.classList.toggle('bad', bad); return bad; }
 
+  function osteoLabel() { $('exp-l').textContent = form.querySelector('input[name=skills][value=Osteopathie]:checked') ? 'Berufserfahrung in der Osteopathie (Jahre)' : 'Berufserfahrung in Jahren'; }
+  form.addEventListener('change', osteoLabel);
   form.addEventListener('change', function (e) {
     var f = e.target.closest('fieldset, .field, #f-ok');
     if (f && f.classList.contains('bad')) f.classList.remove('bad');
@@ -437,7 +439,7 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
       'Telefon: ' + tel,
       'E-Mail: ' + mail,
       'Stand: ' + status,
-      'Berufserfahrung: ' + (expTxt || 'keine Angabe'),
+      'Berufserfahrung' + (skills.indexOf('Osteopathie') > -1 ? ' in der Osteopathie' : '') + ': ' + (expTxt || 'keine Angabe'),
       'Frühester Start: ' + ($('start').value || 'keine Angabe'),
       'Wunschstandort: ' + locs.join(', '),
       'Stundenumfang: ' + (hours.join(', ') || 'keine Angabe'),
@@ -468,6 +470,7 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
   var cy = $('c-years'), ch = $('c-hours');
   function eur(n, d) { return n.toLocaleString('de-DE', { minimumFractionDigits: d, maximumFractionDigits: d }); }
   function calc() {
+    $('c-years-l').textContent = document.querySelector('input[name=cfobi][value=Osteopathie]:checked') ? 'Berufserfahrung in der Osteopathie' : 'Berufserfahrung';
     var f = document.querySelectorAll('input[name=cfobi]:checked').length, y = +cy.value, h = +ch.value, blocks = Math.floor(y / 5);
     var rate = 22 + (document.querySelector('input[name=cfobi][value=Osteopathie]:checked') ? 10 : 0.5 * f) + 0.5 * blocks, month = Math.round(rate * h * 4.33 / 10) * 10;
     $('c-years-out').textContent = y === 0 ? 'Berufseinstieg' : y + (y === 1 ? ' Jahr' : ' Jahre');
@@ -490,6 +493,7 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
     form.querySelector('input[name=hours][value=Teilzeit]').checked = h < 35;
     var st = form.querySelector('input[name=status][value^=Examiniert]'); if (!form.querySelector('input[name=status]:checked')) st.checked = true;
     calcH = h;
+    osteoLabel();
     setTimeout(function () { $('name').focus({ preventScroll: true }); }, 400);
   });
   // Link aus der Kachel "Physiotherapie in Ausbildung": Stand vorauswählen
