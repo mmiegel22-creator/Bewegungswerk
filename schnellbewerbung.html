@@ -156,6 +156,7 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
 .calc-out li b { color: #fff; white-space: nowrap; }
 .calc-out .note { font-size: .82rem; color: #bdbdbd; line-height: 1.45; }
 .calc-out .btn { width: 100%; margin-top: 4px; }
+.calc-out.res { position: static; max-width: 520px; }
 @media (max-width: 760px) { .calc { grid-template-columns: 1fr; } .calc-out { position: static; } }
 @media (max-width: 700px) {
   body { font-size: 16px; }
@@ -281,14 +282,8 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
         <span class="err">Bitte wählen Sie aus.</span>
         <div class="grid2" style="margin-top:6px">
           <div class="field">
-            <label for="exp">Berufserfahrung</label>
-            <select id="exp" name="exp">
-              <option value="">Bitte wählen</option>
-              <option>Berufseinstieg</option>
-              <option>Unter 2 Jahre</option>
-              <option>2 bis 5 Jahre</option>
-              <option>Mehr als 5 Jahre</option>
-            </select>
+            <label for="exp">Berufserfahrung in Jahren</label>
+            <input id="exp" name="exp" type="number" inputmode="numeric" min="0" max="45" step="1" placeholder="z. B. 3 (0 = Berufseinstieg)">
           </div>
           <div class="field">
             <label for="start">Frühester Start</label>
@@ -363,6 +358,18 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
       <span class="eyebrow">Fast geschafft</span>
       <h2>Jetzt nur noch auf Senden tippen</h2>
       <p>Ihr E-Mail-Programm sollte sich mit Ihrer Bewerbung geöffnet haben. Bitte schicken Sie die E-Mail ab, gern mit Lebenslauf im Anhang. Wir melden uns dann persönlich bei Ihnen.</p>
+      <p>Hier sehen Sie vorab, was Sie nach Ihren Angaben bei uns zum Einstieg verdienen würden.</p>
+      <div class="calc-out res" id="res">
+        <span class="k">Ihr voraussichtliches Einstiegsgehalt</span>
+        <div class="big"><span id="r-rate">22,00</span> €<small>/ Std.</small></div>
+        <div class="month" id="r-month-w">ca. <span id="r-month" style="display:inline;font:inherit;color:inherit;margin:0"></span> € im Monat<span id="r-month-k"></span></div>
+        <ul>
+          <li><span>Grundgehalt</span><b>22,00 €</b></li>
+          <li><span id="r-f-l"></span><b id="r-f"></b></li>
+          <li><span id="r-y-l"></span><b id="r-y"></b></li>
+        </ul>
+        <p class="note" id="r-note">Unverbindliche Orientierung, Bruttowerte. Das endgültige Gehalt besprechen wir persönlich mit Ihnen.</p>
+      </div>
       <p>Es hat sich nichts geöffnet? Dann kopieren Sie den Text und schicken Sie ihn an <a class="mail" href="mailto:bewegungswerk.team@gmail.com">bewegungswerk.team@gmail.com</a>.</p>
       <pre id="summary"></pre>
       <div class="row">
@@ -392,7 +399,7 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
 (function () {
   var TO = 'bewegungswerk.team@gmail.com';
   var form = document.getElementById('sb'), done = document.getElementById('done');
-  var mailUrl = '', text = '', calcNote = '';
+  var mailUrl = '', text = '', calcH = 0;
   function $(id) { return document.getElementById(id); }
   function vals(name) { return [].slice.call(form.querySelectorAll('input[name="' + name + '"]:checked')).map(function (i) { return i.value; }); }
   function mark(el, bad) { el.classList.toggle('bad', bad); return bad; }
@@ -420,6 +427,18 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
     if (bad.length) { bad[0].focus(); bad[0].scrollIntoView({ block: 'center', behavior: 'smooth' }); return; }
 
     var hours = vals('hours'), skills = vals('skills'), more = $('more').value.trim(), msg = $('msg').value.trim();
+    // Gehalt aus den Formularangaben
+    var fob = skills.length, yRaw = $('exp').value.trim(), yrs = Math.max(0, Math.min(45, parseInt(yRaw, 10) || 0)), blocks = Math.floor(yrs / 5);
+    var expTxt = yRaw === '' ? '' : (yrs === 0 ? 'Berufseinstieg' : yrs + (yrs === 1 ? ' Jahr' : ' Jahre'));
+    var wh = calcH || (hours.indexOf('Vollzeit') > -1 || !hours.length ? 40 : hours.indexOf('Teilzeit') > -1 ? 30 : 0);
+    var rate = 22 + 0.5 * fob + 0.5 * blocks, month = Math.round(rate * wh * 4.33 / 10) * 10;
+    $('r-rate').textContent = eur(rate, 2);
+    $('r-month-w').style.display = wh ? '' : 'none';
+    $('r-month').textContent = eur(month, 0);
+    $('r-month-k').textContent = 'brutto bei ' + wh + ' Std./Woche' + (calcH ? '' : (wh === 40 ? ' (Vollzeit)' : ' (Teilzeit, Beispiel)'));
+    $('r-f-l').textContent = 'Fortbildungen (' + fob + ')'; $('r-f').textContent = '+ ' + eur(0.5 * fob, 2) + ' €';
+    $('r-y-l').textContent = 'Berufserfahrung (' + blocks + ' × 5 Jahre)'; $('r-y').textContent = '+ ' + eur(0.5 * blocks, 2) + ' €';
+    $('r-note').textContent = (status === 'In Ausbildung' ? 'Gilt ab Ihrem Examen. ' : '') + 'Unverbindliche Orientierung, Bruttowerte. Das endgültige Gehalt besprechen wir persönlich mit Ihnen.';
     if (more) skills.push(more);
     var lines = [
       'Hallo Bewegungswerk-Team,',
@@ -430,13 +449,13 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
       'Telefon: ' + tel,
       'E-Mail: ' + mail,
       'Stand: ' + status,
-      'Berufserfahrung: ' + ($('exp').value || 'keine Angabe'),
+      'Berufserfahrung: ' + (expTxt || 'keine Angabe'),
       'Frühester Start: ' + ($('start').value || 'keine Angabe'),
       'Wunschstandort: ' + locs.join(', '),
       'Stundenumfang: ' + (hours.join(', ') || 'keine Angabe'),
       'Fortbildungen/Schwerpunkte: ' + (skills.join(', ') || 'keine Angabe')
     ];
-    if (calcNote) lines.push(calcNote);
+    lines.push('', 'Einstiegsgehalt laut Gehaltsrechner (Orientierung): ' + eur(rate, 2) + ' €/Std.' + (wh ? ', ca. ' + eur(month, 0) + ' € brutto im Monat bei ' + wh + ' Std./Woche' : ''));
     if (msg) lines.push('', 'Nachricht:', msg);
     lines.push('', 'Viele Grüße', name);
     text = lines.join('\n');
@@ -481,11 +500,11 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
     [].forEach.call(document.querySelectorAll('input[name=cfobi]'), function (c) {
       var t = form.querySelector('input[name=skills][value="' + c.value + '"]'); if (t) t.checked = c.checked;
     });
-    $('exp').value = y === 0 ? 'Berufseinstieg' : y < 2 ? 'Unter 2 Jahre' : y <= 5 ? '2 bis 5 Jahre' : 'Mehr als 5 Jahre';
+    $('exp').value = y;
     form.querySelector('input[name=hours][value=Vollzeit]').checked = h >= 35;
     form.querySelector('input[name=hours][value=Teilzeit]').checked = h < 35;
     var st = form.querySelector('input[name=status][value^=Examiniert]'); if (!form.querySelector('input[name=status]:checked')) st.checked = true;
-    calcNote = 'Gehaltsrechner: ' + (y === 0 ? 'Berufseinstieg' : y + ' Berufsjahre') + ', ' + h + ' Std./Woche, ' + $('c-rate').textContent + ' €/Std.';
+    calcH = h;
     setTimeout(function () { $('name').focus({ preventScroll: true }); }, 400);
   });
   $('year').textContent = new Date().getFullYear();
