@@ -197,6 +197,13 @@ body.menu-open { overflow: hidden; }
 .career-locs { display: flex; flex-wrap: wrap; gap: 8px; }
 .career-locs span { font-size: .88rem; font-weight: 600; padding: .35em .85em; border-radius: 999px; border: 1px solid rgba(246,116,14,.7); color: #fff; }
 @media (max-width: 860px) { .career { grid-template-columns: 1fr; } }
+.career-btns { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn-career-mail { color: #fff; border-color: rgba(255,255,255,.55); background: transparent; }
+.btn-career-mail:hover { border-color: var(--accent); color: var(--accent); }
+.career-quick { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; font-weight: 700; color: var(--accent); text-decoration: none; }
+.career-quick svg { width: 16px; height: 16px; transition: transform .2s; }
+.career-quick:hover { text-decoration: underline; text-underline-offset: 3px; }
+.career-quick:hover svg { transform: translateX(3px); }
 .welcome { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 90px); align-items: center; }
 .welcome .media { aspect-ratio: 3 / 2; border-radius: 12px; overflow: visible; box-shadow: 18px 18px 0 0 var(--accent); }
 .welcome .media img { border-radius: 12px; }
@@ -813,11 +820,11 @@ body.legal-open { overflow: hidden; }
         <h2 id="karriere-title">Werden Sie Teil von Bewegungswerk</h2>
         <p>Sie arbeiten gern mit Menschen, wollen sich fachlich weiterentwickeln und suchen ein Team, das zusammenhält? Wir freuen uns über Verstärkung an unseren drei Standorten.</p>
         <div class="career-locs" aria-label="Standorte"><span>Berlin am Ku'damm</span><span>Berlin am Sportforum</span><span>Potsdam am Speicher</span></div>
-        <p>Schicken Sie uns Ihre Bewerbung gern per <span style="white-space:nowrap">E-Mail</span>, auch initiativ.</p>
-        <a class="btn btn-primary" href="mailto:bewegungswerk.team@gmail.com?subject=Bewerbung"><svg aria-hidden="true" style="width:18px;height:18px;margin-right:8px"><use href="#i-mail"/></svg>Jetzt bewerben</a>
+        <p>Physiotherapeutin oder Physiotherapeut? Bewerben Sie sich in 60 Sekunden mit unserer Schnellbewerbung, ganz ohne Anschreiben. Oder schicken Sie uns Ihre Bewerbung per <span style="white-space:nowrap">E-Mail</span>, auch initiativ.</p>
+        <div class="career-btns"><a class="btn btn-primary" href="schnellbewerbung.html">Schnellbewerbung<svg aria-hidden="true" style="width:18px;height:18px;margin-left:8px"><use href="#i-r"/></svg></a><a class="btn btn-career-mail" href="mailto:bewegungswerk.team@gmail.com?subject=Bewerbung"><svg aria-hidden="true" style="width:18px;height:18px;margin-right:8px"><use href="#i-mail"/></svg>Per E-Mail bewerben</a></div>
       </div>
       <ul class="career-roles reveal">
-        <li><h3>Physiotherapeutinnen und Physiotherapeuten</h3><p>Für die Behandlung unserer Patientinnen und Patienten, vom Alltag bis zum Leistungssport.</p></li>
+        <li><h3>Physiotherapeutinnen und Physiotherapeuten</h3><p>Für die Behandlung unserer Patientinnen und Patienten, vom Alltag bis zum Leistungssport.</p><a class="career-quick" href="schnellbewerbung.html">Zur Schnellbewerbung in 60 Sekunden<svg aria-hidden="true"><use href="#i-r"/></svg></a></li>
         <li><h3>Physiotherapie in Ausbildung</h3><p>Sie sind noch in der Ausbildung? Bei uns lernen Sie im Praxisalltag dazu.</p></li>
         <li><h3>Rezeption</h3><p>Als Teil unseres Teams hinter dem Team unterstützen Sie unsere Physios im Praxisalltag und sorgen dafür, dass alles rundläuft.</p></li>
       </ul>
@@ -945,15 +952,19 @@ body.legal-open { overflow: hidden; }
     <h2>8. Daten unserer Patientinnen und Patienten</h2>
     <p>Im Rahmen der Behandlung verarbeiten wir Stammdaten, Versicherungsdaten, ärztliche Verordnungen, Befunde und die Behandlungsdokumentation. Das ist für die Behandlung und die Abrechnung mit Krankenkassen, Beihilfestellen oder privat erforderlich (Art. 6 Abs. 1 lit. b und c, Art. 9 Abs. 2 lit. h DSGVO, §§ 630a ff. BGB, § 302 SGB V). Empfänger können Ihre Krankenkasse, Ihr verordnender Arzt sowie unsere IT-Dienstleister sein. Unsere Therapeutinnen und Therapeuten unterliegen der Schweigepflicht. Bei der Teambetreuung geben wir Gesundheitsinformationen an den Verein nur mit Ihrer ausdrücklichen Einwilligung weiter (Art. 9 Abs. 2 lit. a DSGVO).</p>
 
-    <h2>9. Speicherdauer</h2>
+    <h2>9. Bewerbungen</h2>
+    <p>Wenn Sie sich bei uns bewerben, per E-Mail oder über unsere Schnellbewerbung, verarbeiten wir Ihre Angaben (z.&nbsp;B. Name, Kontaktdaten, Ausbildungsstand, Berufserfahrung, Wunschstandort und gegebenenfalls Ihren Lebenslauf), um über Ihre Bewerbung zu entscheiden. Die Schnellbewerbung speichert und überträgt selbst keine Daten: Beim Absenden öffnet sich lediglich Ihr eigenes E-Mail-Programm mit einer vorausgefüllten Nachricht, die Sie selbst an uns senden. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Anbahnung eines Beschäftigungsverhältnisses). Für den E-Mail-Empfang gilt das unter Punkt 5 zu Google Gesagte.</p>
+    <p>Kommt es zu einer Einstellung, übernehmen wir Ihre Daten in die Personalakte. Andernfalls löschen wir Ihre Bewerbungsunterlagen spätestens sechs Monate nach Abschluss des Bewerbungsverfahrens, um mögliche Ansprüche nach dem Allgemeinen Gleichbehandlungsgesetz (AGG) abwehren zu können (Art. 6 Abs. 1 lit. f DSGVO). Möchten Sie, dass wir Ihre Bewerbung länger für künftige Stellen aufbewahren, fragen wir Sie vorher um Ihre Einwilligung.</p>
+
+    <h2>10. Speicherdauer</h2>
     <p>Die Behandlungsdokumentation bewahren wir zehn Jahre nach Abschluss der Behandlung auf (§ 630f Abs. 3 BGB), Abrechnungsunterlagen nach den steuer- und handelsrechtlichen Fristen (bis zu zehn Jahre). E-Mail-Anfragen ohne anschließende Behandlung löschen wir, sobald sie erledigt sind. Server-Logdateien werden von GitHub nach dessen Vorgaben gelöscht.</p>
 
-    <h2>10. Ihre Rechte</h2>
+    <h2>11. Ihre Rechte</h2>
     <p>Sie haben das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und können eine erteilte Einwilligung jederzeit für die Zukunft widerrufen (Art. 7 Abs. 3). Eine formlose E-Mail an <a href="mailto:bewegungswerk.team@gmail.com">bewegungswerk.team@gmail.com</a> genügt.</p>
     <p><strong>Widerspruchsrecht (Art. 21 DSGVO):</strong> Soweit wir Daten auf Grundlage berechtigter Interessen (Art. 6 Abs. 1 lit. f DSGVO) verarbeiten, können Sie aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit widersprechen.</p>
     <p>Sie können sich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel bei der Berliner Beauftragten für Datenschutz und Informationsfreiheit (Alt-Moabit 59–61, 10555 Berlin) oder bei der Landesbeauftragten für den Datenschutz und für das Recht auf Akteneinsicht Brandenburg (Stahnsdorfer Damm 77, 14532 Kleinmachnow).</p>
 
-    <h2>11. Keine automatisierte Entscheidung</h2>
+    <h2>12. Keine automatisierte Entscheidung</h2>
     <p>Wir treffen keine Entscheidungen ausschließlich auf Grundlage automatisierter Verarbeitung, und wir nutzen kein Profiling.</p>
   </div>
 </section>
