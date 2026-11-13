@@ -154,7 +154,7 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
 .calc-out ul { list-style: none; margin: 0; padding: 14px 0 0; border-top: 1px solid rgba(255,255,255,.16); display: grid; gap: 6px; font-size: .95rem; }
 .calc-out li { display: flex; justify-content: space-between; gap: 12px; }
 .calc-out li b { color: #fff; white-space: nowrap; }
-.calc-out .note { font-size: .82rem; color: #bdbdbd; line-height: 1.45; }
+.calc-out .note { padding-top: 14px; border-top: 1px solid rgba(255,255,255,.16); font-size: .82rem; color: #bdbdbd; line-height: 1.45; }
 .calc-out .btn { width: 100%; margin-top: 4px; }
 .calc-out.res { position: static; max-width: 520px; }
 @media (max-width: 760px) { .calc { grid-template-columns: 1fr; } .calc-out { position: static; } }
@@ -211,7 +211,7 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
     <div class="calc">
       <div class="calc-in">
         <fieldset>
-          <legend>Ihre Fortbildungen<span class="opt">je Fortbildung + 0,50 €/Std.</span></legend>
+          <legend>Ihre Fortbildungen</legend>
           <div class="chips">
           <label class="chip"><input type="checkbox" name="cfobi" value="Manuelle Therapie"><span>Manuelle Therapie</span></label>
           <label class="chip"><input type="checkbox" name="cfobi" value="Manuelle Lymphdrainage"><span>Lymphdrainage</span></label>
@@ -225,7 +225,7 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
         <div class="range">
           <div class="range-top"><label for="c-years">Berufserfahrung</label><output id="c-years-out" for="c-years">0 Jahre</output></div>
           <input type="range" id="c-years" min="0" max="30" step="1" value="0">
-          <div class="range-scale"><span>Berufseinstieg</span><span>je volle 5 Jahre + 0,50 €/Std.</span><span>30 J.</span></div>
+          <div class="range-scale"><span>Berufseinstieg</span><span>30 J.</span></div>
         </div>
         <div class="range">
           <div class="range-top"><label for="c-hours">Wochenstunden</label><output id="c-hours-out" for="c-hours">40 Std.</output></div>
@@ -237,11 +237,6 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
         <span class="k">Ihr Stundenlohn</span>
         <div class="big"><span id="c-rate">22,00</span> €<small>/ Std.</small></div>
         <div class="month">ca. <span id="c-month" style="display:inline;font:inherit;color:inherit;margin:0">3.810</span> € im Monat<span id="c-month-k">brutto bei 40 Std./Woche</span></div>
-        <ul>
-          <li><span>Grundgehalt</span><b>22,00 €</b></li>
-          <li><span id="c-f-l">Fortbildungen (0)</span><b id="c-f">+ 0,00 €</b></li>
-          <li><span id="c-y-l">Berufserfahrung</span><b id="c-y">+ 0,00 €</b></li>
-        </ul>
         <a class="btn btn-primary" href="#bewerben" id="c-apply">Mit diesen Angaben bewerben</a>
         <p class="note">Unverbindliche Orientierung für examinierte Physiotherapeutinnen und Physiotherapeuten, Bruttowerte. Monatswert gerundet (Wochenstunden × 4,33). Das endgültige Gehalt besprechen wir persönlich mit Ihnen.</p>
       </div>
@@ -363,11 +358,6 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
         <span class="k">Ihr voraussichtliches Einstiegsgehalt</span>
         <div class="big"><span id="r-rate">22,00</span> €<small>/ Std.</small></div>
         <div class="month" id="r-month-w">ca. <span id="r-month" style="display:inline;font:inherit;color:inherit;margin:0"></span> € im Monat<span id="r-month-k"></span></div>
-        <ul>
-          <li><span>Grundgehalt</span><b>22,00 €</b></li>
-          <li><span id="r-f-l"></span><b id="r-f"></b></li>
-          <li><span id="r-y-l"></span><b id="r-y"></b></li>
-        </ul>
         <p class="note" id="r-note">Unverbindliche Orientierung, Bruttowerte. Das endgültige Gehalt besprechen wir persönlich mit Ihnen.</p>
       </div>
       <p>Es hat sich nichts geöffnet? Dann kopieren Sie den Text und schicken Sie ihn an <a class="mail" href="mailto:bewegungswerk.team@gmail.com">bewegungswerk.team@gmail.com</a>.</p>
@@ -436,8 +426,6 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
     $('r-month-w').style.display = wh ? '' : 'none';
     $('r-month').textContent = eur(month, 0);
     $('r-month-k').textContent = 'brutto bei ' + wh + ' Std./Woche' + (calcH ? '' : (wh === 40 ? ' (Vollzeit)' : ' (Teilzeit, Beispiel)'));
-    $('r-f-l').textContent = 'Fortbildungen (' + fob + ')'; $('r-f').textContent = '+ ' + eur(0.5 * fob, 2) + ' €';
-    $('r-y-l').textContent = 'Berufserfahrung'; $('r-y').textContent = '+ ' + eur(0.5 * blocks, 2) + ' €';
     $('r-note').textContent = (status === 'In Ausbildung' ? 'Gilt ab Ihrem Examen. ' : '') + 'Unverbindliche Orientierung, Bruttowerte. Das endgültige Gehalt besprechen wir persönlich mit Ihnen.';
     if (more) skills.push(more);
     var lines = [
@@ -477,7 +465,6 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
     function sel() { var r = document.createRange(); r.selectNodeContents($('summary')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); try { document.execCommand('copy'); ok(); } catch (x) {} }
   });
 
-  // Gehaltsrechner: 22 € + 0,50 € je Fortbildung + 0,50 € je volle 5 Berufsjahre
   var cy = $('c-years'), ch = $('c-hours');
   function eur(n, d) { return n.toLocaleString('de-DE', { minimumFractionDigits: d, maximumFractionDigits: d }); }
   function calc() {
@@ -488,8 +475,6 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
     $('c-rate').textContent = eur(rate, 2);
     $('c-month').textContent = eur(month, 0);
     $('c-month-k').textContent = 'brutto bei ' + h + ' Std./Woche';
-    $('c-f-l').textContent = 'Fortbildungen (' + f + ')'; $('c-f').textContent = '+ ' + eur(0.5 * f, 2) + ' €';
-    $('c-y-l').textContent = 'Berufserfahrung'; $('c-y').textContent = '+ ' + eur(0.5 * blocks, 2) + ' €';
     [cy, ch].forEach(function (r) { r.style.setProperty('--p', ((r.value - r.min) / (r.max - r.min) * 100) + '%'); });
   }
   document.getElementById('gehaltsrechner').addEventListener('input', calc);
