@@ -126,6 +126,37 @@ footer a { text-decoration: none; color: #e8e8e8; }
 footer a:hover { color: var(--accent); }
 footer small { font-size: .9rem; color: #cfcfcf; width: 100%; border-top: 1px solid #4a4a4a; padding-top: 18px; }
 
+
+/* Gehaltsrechner */
+.wrap-card + .wrap-card .card { margin-top: 28px; }
+.calc-head { display: grid; gap: 8px; margin-bottom: 26px; }
+.calc-head h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+.calc-head p { color: var(--muted); max-width: 62ch; }
+.calc { display: grid; grid-template-columns: 1.35fr 1fr; gap: clamp(22px, 4vw, 44px); align-items: start; }
+.calc-in { display: grid; gap: 26px; }
+.range { display: grid; gap: 10px; }
+.range-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.range-top label { font: 700 1.02rem/1.3 var(--font-display); color: var(--ink); }
+.range-top output { font: 700 1.05rem var(--font-display); color: var(--accent-text); white-space: nowrap; }
+input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 30px; background: transparent; cursor: pointer; margin: 0; }
+input[type=range]::-webkit-slider-runnable-track { height: 8px; border-radius: 99px; background: linear-gradient(var(--accent), var(--accent)) 0 / var(--p, 0%) 100% no-repeat, #d3d3d3; }
+input[type=range]::-moz-range-track { height: 8px; border-radius: 99px; background: #d3d3d3; }
+input[type=range]::-moz-range-progress { height: 8px; border-radius: 99px; background: var(--accent); }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; margin-top: -10px; border-radius: 50%; background: #fff; border: 3px solid var(--accent); box-shadow: 0 2px 6px rgba(0,0,0,.2); }
+input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 3px solid var(--accent); box-shadow: 0 2px 6px rgba(0,0,0,.2); }
+.range-scale { display: flex; justify-content: space-between; font-size: .82rem; color: var(--muted); }
+.calc-out { --ink: #fff; position: sticky; top: 96px; color: #e8e8e8; background: radial-gradient(70% 80% at 100% 0%, rgba(246,116,14,.32), transparent 70%), repeating-linear-gradient(135deg, rgba(246,116,14,.1) 0 1.5px, transparent 1.5px 22px), #2b2b2b; border-radius: 16px; padding: clamp(22px, 3vw, 30px); display: grid; gap: 14px; }
+.calc-out .k { font-size: .9rem; text-transform: uppercase; letter-spacing: .04em; color: #cfcfcf; font-weight: 700; }
+.calc-out .big { white-space: nowrap; font: 800 clamp(2.3rem, 4.6vw, 3.1rem)/1 var(--font-display); color: #fff; letter-spacing: -0.02em; }
+.calc-out .big small { font-size: .38em; font-weight: 700; color: var(--accent); margin-left: 6px; letter-spacing: 0; }
+.calc-out .month { font: 700 1.25rem/1.2 var(--font-display); color: #fff; }
+.calc-out .month span { display: block; font: 400 .9rem var(--font-body); color: #cfcfcf; margin-top: 4px; }
+.calc-out ul { list-style: none; margin: 0; padding: 14px 0 0; border-top: 1px solid rgba(255,255,255,.16); display: grid; gap: 6px; font-size: .95rem; }
+.calc-out li { display: flex; justify-content: space-between; gap: 12px; }
+.calc-out li b { color: #fff; white-space: nowrap; }
+.calc-out .note { font-size: .82rem; color: #bdbdbd; line-height: 1.45; }
+.calc-out .btn { width: 100%; margin-top: 4px; }
+@media (max-width: 760px) { .calc { grid-template-columns: 1fr; } .calc-out { position: static; } }
 @media (max-width: 700px) {
   body { font-size: 16px; }
   .grid2, .grid3 { grid-template-columns: 1fr; }
@@ -170,7 +201,55 @@ footer small { font-size: .9rem; color: #cfcfcf; width: 100%; border-top: 1px so
 
 <main id="inhalt">
   <div class="wrap-card">
-  <div class="card">
+  <section class="card" id="gehaltsrechner" aria-labelledby="calc-title">
+    <div class="calc-head">
+      <span class="eyebrow">Gehaltsrechner</span>
+      <h2 id="calc-title">Was verdienen Sie bei uns zum Einstieg?</h2>
+      <p>Ihr Einstiegsgehalt richtet sich nach Ihren Fortbildungen und Ihrer Berufserfahrung. Stellen Sie es hier selbst zusammen.</p>
+    </div>
+    <div class="calc">
+      <div class="calc-in">
+        <fieldset>
+          <legend>Ihre Fortbildungen<span class="opt">je Fortbildung + 0,50 €/Std.</span></legend>
+          <div class="chips">
+          <label class="chip"><input type="checkbox" name="cfobi" value="Manuelle Therapie"><span>Manuelle Therapie</span></label>
+          <label class="chip"><input type="checkbox" name="cfobi" value="Manuelle Lymphdrainage"><span>Lymphdrainage</span></label>
+          <label class="chip"><input type="checkbox" name="cfobi" value="KGG"><span>KGG</span></label>
+          <label class="chip"><input type="checkbox" name="cfobi" value="KG Neuro (Bobath/PNF)"><span>KG Neuro</span></label>
+          <label class="chip"><input type="checkbox" name="cfobi" value="Sportphysiotherapie"><span>Sportphysiotherapie</span></label>
+          <label class="chip"><input type="checkbox" name="cfobi" value="CMD"><span>CMD</span></label>
+          <label class="chip"><input type="checkbox" name="cfobi" value="Osteopathie"><span>Osteopathie</span></label>
+          </div>
+        </fieldset>
+        <div class="range">
+          <div class="range-top"><label for="c-years">Berufserfahrung</label><output id="c-years-out" for="c-years">0 Jahre</output></div>
+          <input type="range" id="c-years" min="0" max="30" step="1" value="0">
+          <div class="range-scale"><span>Berufseinstieg</span><span>je volle 5 Jahre + 0,50 €/Std.</span><span>30 J.</span></div>
+        </div>
+        <div class="range">
+          <div class="range-top"><label for="c-hours">Wochenstunden</label><output id="c-hours-out" for="c-hours">40 Std.</output></div>
+          <input type="range" id="c-hours" min="10" max="40" step="1" value="40">
+          <div class="range-scale"><span>10</span><span>40</span></div>
+        </div>
+      </div>
+      <div class="calc-out" aria-live="polite">
+        <span class="k">Ihr Stundenlohn</span>
+        <div class="big"><span id="c-rate">22,00</span> €<small>/ Std.</small></div>
+        <div class="month">ca. <span id="c-month" style="display:inline;font:inherit;color:inherit;margin:0">3.810</span> € im Monat<span id="c-month-k">brutto bei 40 Std./Woche</span></div>
+        <ul>
+          <li><span>Grundgehalt</span><b>22,00 €</b></li>
+          <li><span id="c-f-l">Fortbildungen (0)</span><b id="c-f">+ 0,00 €</b></li>
+          <li><span id="c-y-l">Berufserfahrung (0 × 5 Jahre)</span><b id="c-y">+ 0,00 €</b></li>
+        </ul>
+        <a class="btn btn-primary" href="#bewerben" id="c-apply">Mit diesen Angaben bewerben</a>
+        <p class="note">Unverbindliche Orientierung für examinierte Physiotherapeutinnen und Physiotherapeuten, Bruttowerte. Monatswert gerundet (Wochenstunden × 4,33). Das endgültige Gehalt besprechen wir persönlich mit Ihnen.</p>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <div class="wrap-card">
+  <div class="card" id="bewerben">
     <form id="sb" novalidate>
       <fieldset>
         <legend><span class="step">1</span>Wer sind Sie?</legend>
@@ -313,7 +392,7 @@ footer small { font-size: .9rem; color: #cfcfcf; width: 100%; border-top: 1px so
 (function () {
   var TO = 'bewegungswerk.team@gmail.com';
   var form = document.getElementById('sb'), done = document.getElementById('done');
-  var mailUrl = '', text = '';
+  var mailUrl = '', text = '', calcNote = '';
   function $(id) { return document.getElementById(id); }
   function vals(name) { return [].slice.call(form.querySelectorAll('input[name="' + name + '"]:checked')).map(function (i) { return i.value; }); }
   function mark(el, bad) { el.classList.toggle('bad', bad); return bad; }
@@ -357,6 +436,7 @@ footer small { font-size: .9rem; color: #cfcfcf; width: 100%; border-top: 1px so
       'Stundenumfang: ' + (hours.join(', ') || 'keine Angabe'),
       'Fortbildungen/Schwerpunkte: ' + (skills.join(', ') || 'keine Angabe')
     ];
+    if (calcNote) lines.push(calcNote);
     if (msg) lines.push('', 'Nachricht:', msg);
     lines.push('', 'Viele Grüße', name);
     text = lines.join('\n');
@@ -376,6 +456,37 @@ footer small { font-size: .9rem; color: #cfcfcf; width: 100%; border-top: 1px so
     function ok() { b.querySelector('span').textContent = 'Kopiert'; setTimeout(function () { b.querySelector('span').textContent = 'Text kopieren'; }, 2000); }
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(all).then(ok, sel); else sel();
     function sel() { var r = document.createRange(); r.selectNodeContents($('summary')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); try { document.execCommand('copy'); ok(); } catch (x) {} }
+  });
+
+  // Gehaltsrechner: 22 € + 0,50 € je Fortbildung + 0,50 € je volle 5 Berufsjahre
+  var cy = $('c-years'), ch = $('c-hours');
+  function eur(n, d) { return n.toLocaleString('de-DE', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+  function calc() {
+    var f = document.querySelectorAll('input[name=cfobi]:checked').length, y = +cy.value, h = +ch.value, blocks = Math.floor(y / 5);
+    var rate = 22 + 0.5 * f + 0.5 * blocks, month = Math.round(rate * h * 4.33 / 10) * 10;
+    $('c-years-out').textContent = y === 0 ? 'Berufseinstieg' : y + (y === 1 ? ' Jahr' : ' Jahre');
+    $('c-hours-out').textContent = h + ' Std.';
+    $('c-rate').textContent = eur(rate, 2);
+    $('c-month').textContent = eur(month, 0);
+    $('c-month-k').textContent = 'brutto bei ' + h + ' Std./Woche';
+    $('c-f-l').textContent = 'Fortbildungen (' + f + ')'; $('c-f').textContent = '+ ' + eur(0.5 * f, 2) + ' €';
+    $('c-y-l').textContent = 'Berufserfahrung (' + blocks + ' × 5 Jahre)'; $('c-y').textContent = '+ ' + eur(0.5 * blocks, 2) + ' €';
+    [cy, ch].forEach(function (r) { r.style.setProperty('--p', ((r.value - r.min) / (r.max - r.min) * 100) + '%'); });
+  }
+  document.getElementById('gehaltsrechner').addEventListener('input', calc);
+  document.getElementById('gehaltsrechner').addEventListener('change', calc);
+  calc();
+  $('c-apply').addEventListener('click', function () {
+    var y = +cy.value, h = +ch.value;
+    [].forEach.call(document.querySelectorAll('input[name=cfobi]'), function (c) {
+      var t = form.querySelector('input[name=skills][value="' + c.value + '"]'); if (t) t.checked = c.checked;
+    });
+    $('exp').value = y === 0 ? 'Berufseinstieg' : y < 2 ? 'Unter 2 Jahre' : y <= 5 ? '2 bis 5 Jahre' : 'Mehr als 5 Jahre';
+    form.querySelector('input[name=hours][value=Vollzeit]').checked = h >= 35;
+    form.querySelector('input[name=hours][value=Teilzeit]').checked = h < 35;
+    var st = form.querySelector('input[name=status][value^=Examiniert]'); if (!form.querySelector('input[name=status]:checked')) st.checked = true;
+    calcNote = 'Gehaltsrechner: ' + (y === 0 ? 'Berufseinstieg' : y + ' Berufsjahre') + ', ' + h + ' Std./Woche, ' + $('c-rate').textContent + ' €/Std.';
+    setTimeout(function () { $('name').focus({ preventScroll: true }); }, 400);
   });
   $('year').textContent = new Date().getFullYear();
 })();
