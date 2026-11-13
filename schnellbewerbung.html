@@ -219,7 +219,6 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
           <label class="chip"><input type="checkbox" name="cfobi" value="KG Neuro (Bobath/PNF)"><span>KG Neuro</span></label>
           <label class="chip"><input type="checkbox" name="cfobi" value="Sportphysiotherapie"><span>Sportphysiotherapie</span></label>
           <label class="chip"><input type="checkbox" name="cfobi" value="CMD"><span>CMD</span></label>
-          <label class="chip"><input type="checkbox" name="cfobi" value="Osteopathie"><span>Osteopathie</span></label>
           </div>
         </fieldset>
         <div class="range">
@@ -394,8 +393,6 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
   function vals(name) { return [].slice.call(form.querySelectorAll('input[name="' + name + '"]:checked')).map(function (i) { return i.value; }); }
   function mark(el, bad) { el.classList.toggle('bad', bad); return bad; }
 
-  function osteoLabel() { $('exp-l').textContent = form.querySelector('input[name=skills][value=Osteopathie]:checked') ? 'Berufserfahrung in der Osteopathie (Jahre)' : 'Berufserfahrung in Jahren'; }
-  form.addEventListener('change', osteoLabel);
   form.addEventListener('change', function (e) {
     var f = e.target.closest('fieldset, .field, #f-ok');
     if (f && f.classList.contains('bad')) f.classList.remove('bad');
@@ -420,10 +417,10 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
 
     var hours = vals('hours'), skills = vals('skills'), more = $('more').value.trim(), msg = $('msg').value.trim();
     // Gehalt aus den Formularangaben
-    var fob = skills.length, yRaw = $('exp').value.trim(), yrs = Math.max(0, Math.min(45, parseInt(yRaw, 10) || 0)), blocks = Math.floor(yrs / 5);
+    var fob = skills.filter(function (x) { return x !== 'Osteopathie'; }).length, yRaw = $('exp').value.trim(), yrs = Math.max(0, Math.min(45, parseInt(yRaw, 10) || 0)), blocks = Math.floor(yrs / 5);
     var expTxt = yRaw === '' ? '' : (yrs === 0 ? 'Berufseinstieg' : yrs + (yrs === 1 ? ' Jahr' : ' Jahre'));
     var wh = calcH || (hours.indexOf('Vollzeit') > -1 || !hours.length ? 40 : hours.indexOf('Teilzeit') > -1 ? 30 : 0);
-    var rate = 22 + (skills.indexOf('Osteopathie') > -1 ? 10 : 0.5 * fob) + 0.5 * blocks, month = Math.round(rate * wh * 4.33 / 10) * 10;
+    var rate = 22 + 0.5 * fob + 0.5 * blocks, month = Math.round(rate * wh * 4.33 / 10) * 10;
     $('r-rate').textContent = eur(rate, 2);
     $('r-month-w').style.display = wh ? '' : 'none';
     $('r-month').textContent = eur(month, 0);
@@ -439,7 +436,7 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
       'Telefon: ' + tel,
       'E-Mail: ' + mail,
       'Stand: ' + status,
-      'Berufserfahrung' + (skills.indexOf('Osteopathie') > -1 ? ' in der Osteopathie' : '') + ': ' + (expTxt || 'keine Angabe'),
+      'Berufserfahrung: ' + (expTxt || 'keine Angabe'),
       'Frühester Start: ' + ($('start').value || 'keine Angabe'),
       'Wunschstandort: ' + locs.join(', '),
       'Stundenumfang: ' + (hours.join(', ') || 'keine Angabe'),
@@ -470,9 +467,8 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
   var cy = $('c-years'), ch = $('c-hours');
   function eur(n, d) { return n.toLocaleString('de-DE', { minimumFractionDigits: d, maximumFractionDigits: d }); }
   function calc() {
-    $('c-years-l').textContent = document.querySelector('input[name=cfobi][value=Osteopathie]:checked') ? 'Berufserfahrung in der Osteopathie' : 'Berufserfahrung';
     var f = document.querySelectorAll('input[name=cfobi]:checked').length, y = +cy.value, h = +ch.value, blocks = Math.floor(y / 5);
-    var rate = 22 + (document.querySelector('input[name=cfobi][value=Osteopathie]:checked') ? 10 : 0.5 * f) + 0.5 * blocks, month = Math.round(rate * h * 4.33 / 10) * 10;
+    var rate = 22 + 0.5 * f + 0.5 * blocks, month = Math.round(rate * h * 4.33 / 10) * 10;
     $('c-years-out').textContent = y === 0 ? 'Berufseinstieg' : y + (y === 1 ? ' Jahr' : ' Jahre');
     $('c-hours-out').textContent = h + ' Std.';
     $('c-rate').textContent = eur(rate, 2);
@@ -493,7 +489,6 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
     form.querySelector('input[name=hours][value=Teilzeit]').checked = h < 35;
     var st = form.querySelector('input[name=status][value^=Examiniert]'); if (!form.querySelector('input[name=status]:checked')) st.checked = true;
     calcH = h;
-    osteoLabel();
     setTimeout(function () { $('name').focus({ preventScroll: true }); }, 400);
   });
   // Link aus der Kachel "Physiotherapie in Ausbildung": Stand vorauswählen
