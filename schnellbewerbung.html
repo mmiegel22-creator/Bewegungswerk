@@ -421,7 +421,7 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
     var fob = skills.length, yRaw = $('exp').value.trim(), yrs = Math.max(0, Math.min(45, parseInt(yRaw, 10) || 0)), blocks = Math.floor(yrs / 5);
     var expTxt = yRaw === '' ? '' : (yrs === 0 ? 'Berufseinstieg' : yrs + (yrs === 1 ? ' Jahr' : ' Jahre'));
     var wh = calcH || (hours.indexOf('Vollzeit') > -1 || !hours.length ? 40 : hours.indexOf('Teilzeit') > -1 ? 30 : 0);
-    var rate = 22 + 0.5 * fob + 0.5 * blocks, month = Math.round(rate * wh * 4.33 / 10) * 10;
+    var rate = 22 + (skills.indexOf('Osteopathie') > -1 ? 10 : 0.5 * fob) + 0.5 * blocks, month = Math.round(rate * wh * 4.33 / 10) * 10;
     $('r-rate').textContent = eur(rate, 2);
     $('r-month-w').style.display = wh ? '' : 'none';
     $('r-month').textContent = eur(month, 0);
@@ -469,7 +469,7 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
   function eur(n, d) { return n.toLocaleString('de-DE', { minimumFractionDigits: d, maximumFractionDigits: d }); }
   function calc() {
     var f = document.querySelectorAll('input[name=cfobi]:checked').length, y = +cy.value, h = +ch.value, blocks = Math.floor(y / 5);
-    var rate = 22 + 0.5 * f + 0.5 * blocks, month = Math.round(rate * h * 4.33 / 10) * 10;
+    var rate = 22 + (document.querySelector('input[name=cfobi][value=Osteopathie]:checked') ? 10 : 0.5 * f) + 0.5 * blocks, month = Math.round(rate * h * 4.33 / 10) * 10;
     $('c-years-out').textContent = y === 0 ? 'Berufseinstieg' : y + (y === 1 ? ' Jahr' : ' Jahre');
     $('c-hours-out').textContent = h + ' Std.';
     $('c-rate').textContent = eur(rate, 2);
