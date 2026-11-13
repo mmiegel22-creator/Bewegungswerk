@@ -240,7 +240,7 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
         <ul>
           <li><span>Grundgehalt</span><b>22,00 €</b></li>
           <li><span id="c-f-l">Fortbildungen (0)</span><b id="c-f">+ 0,00 €</b></li>
-          <li><span id="c-y-l">Berufserfahrung (0 × 5 Jahre)</span><b id="c-y">+ 0,00 €</b></li>
+          <li><span id="c-y-l">Berufserfahrung</span><b id="c-y">+ 0,00 €</b></li>
         </ul>
         <a class="btn btn-primary" href="#bewerben" id="c-apply">Mit diesen Angaben bewerben</a>
         <p class="note">Unverbindliche Orientierung für examinierte Physiotherapeutinnen und Physiotherapeuten, Bruttowerte. Monatswert gerundet (Wochenstunden × 4,33). Das endgültige Gehalt besprechen wir persönlich mit Ihnen.</p>
@@ -437,7 +437,7 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
     $('r-month').textContent = eur(month, 0);
     $('r-month-k').textContent = 'brutto bei ' + wh + ' Std./Woche' + (calcH ? '' : (wh === 40 ? ' (Vollzeit)' : ' (Teilzeit, Beispiel)'));
     $('r-f-l').textContent = 'Fortbildungen (' + fob + ')'; $('r-f').textContent = '+ ' + eur(0.5 * fob, 2) + ' €';
-    $('r-y-l').textContent = 'Berufserfahrung (' + blocks + ' × 5 Jahre)'; $('r-y').textContent = '+ ' + eur(0.5 * blocks, 2) + ' €';
+    $('r-y-l').textContent = 'Berufserfahrung'; $('r-y').textContent = '+ ' + eur(0.5 * blocks, 2) + ' €';
     $('r-note').textContent = (status === 'In Ausbildung' ? 'Gilt ab Ihrem Examen. ' : '') + 'Unverbindliche Orientierung, Bruttowerte. Das endgültige Gehalt besprechen wir persönlich mit Ihnen.';
     if (more) skills.push(more);
     var lines = [
@@ -489,7 +489,7 @@ input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 
     $('c-month').textContent = eur(month, 0);
     $('c-month-k').textContent = 'brutto bei ' + h + ' Std./Woche';
     $('c-f-l').textContent = 'Fortbildungen (' + f + ')'; $('c-f').textContent = '+ ' + eur(0.5 * f, 2) + ' €';
-    $('c-y-l').textContent = 'Berufserfahrung (' + blocks + ' × 5 Jahre)'; $('c-y').textContent = '+ ' + eur(0.5 * blocks, 2) + ' €';
+    $('c-y-l').textContent = 'Berufserfahrung'; $('c-y').textContent = '+ ' + eur(0.5 * blocks, 2) + ' €';
     [cy, ch].forEach(function (r) { r.style.setProperty('--p', ((r.value - r.min) / (r.max - r.min) * 100) + '%'); });
   }
   document.getElementById('gehaltsrechner').addEventListener('input', calc);
